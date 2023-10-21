@@ -1,0 +1,11 @@
+{
+    "license": "proprietary",
+    "name": "coderwise/app",
+    "description": "descripcion",
+    "autoload": {
+        "psr-4": {
+            "Coderwise\\Viauy\\": "src/"
+        }
+    },
+    "require": {}
+}
