@@ -267,7 +267,7 @@ hr{
     width: 100%;
 }
 
-.button-box-editar input{
+.button-box-editar button{
     border: none;
     width: 250px;
     padding: 10px;
@@ -277,7 +277,7 @@ hr{
     font-size: 20px;
 }
 
-.button-box-editar input:hover{
+.button-box-editar button:hover{
     background-color: #b46f0f;
 }
 
@@ -326,6 +326,11 @@ hr{
 .perfil-info p{
     margin-top: 20px;
 
+}
+
+.texto-error {
+    font-size: 0.8rem;
+    color: #f00;
 }
 
 

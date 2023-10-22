@@ -7,15 +7,16 @@ use PDO;
 use PDOException;
 use Coderwise\Viauy\libs\Conexion;
 
-class Servicios 
+class Servicios
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
-    
+
     public static function busqueda_travel($origen, $destino)
     {
-        try 
-        {
+        try {
             $conexion = Conexion::getConexion();
             $pdo = $conexion->getPdo();
 
@@ -26,14 +27,14 @@ class Servicios
             $stmt->execute();
 
             $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            
+
+
             if ($resultado) {
                 $id_ruta = $resultado['IDruta'];
 
                 $sql = "SELECT IDlinea, IdServicio, DuracionViaje, Precio FROM lineas WHERE IDruta = :idRuta";
                 $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':idRuta', $id_ruta, PDO::PARAM_INT); 
+                $stmt->bindParam(':idRuta', $id_ruta, PDO::PARAM_INT);
                 $stmt->execute();
 
                 $resultados = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -42,11 +43,8 @@ class Servicios
             } else {
                 return "No se encontró ninguna ruta que tenga el origen y destino indicados.";
             }
-
-        }catch (\Throwable $th) 
-        {
+        } catch (\Throwable $th) {
             return $th;
         }
-        
     }
 }

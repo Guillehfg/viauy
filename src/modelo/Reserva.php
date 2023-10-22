@@ -7,15 +7,16 @@ use PDO;
 use PDOException;
 use Coderwise\Viauy\libs\Conexion;
 
-class Reserva 
+class Reserva
 {
-    public function __construct(){}
+    public function __construct()
+    {
+    }
 
-    
+
     public static function reserva_pasaje($nombre_user, $id_servicio, $fecha_reserva)
     {
-        try 
-        {
+        try {
             $conexion = Conexion::getConexion();
             $pdo = $conexion->getPdo();
 
@@ -53,10 +54,8 @@ class Reserva
             } else {
                 return false;
             }
-        }catch (\Throwable $th) 
-        {
+        } catch (\Throwable $th) {
             return $th;
         }
-        
     }
 }

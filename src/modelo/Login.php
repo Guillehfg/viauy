@@ -41,16 +41,16 @@ class Login
     $sql = "INSERT INTO usuarios (email, contraseña, nombre, apellido, edad) VALUES (:usuario, :contrasena, :nombre, :apellido, :edad)";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':usuario', $usuario);
-    $stmt->bindParam(':contrasena', $pwd); 
+    $stmt->bindParam(':contrasena', $pwd);
     $stmt->bindParam(':nombre', $nombre);
     $stmt->bindParam(':apellido', $apellido);
     $stmt->bindParam(':edad', $edad);
     $stmt->execute();
 
     if ($stmt->rowCount() > 0) {
-        return true;
+      return true;
     } else {
-        return false;
+      return false;
     }
   }
 }

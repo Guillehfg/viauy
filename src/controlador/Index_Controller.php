@@ -56,7 +56,4 @@ class Index_Controller extends Controlador
   {
     $this->cargarVista("dashboard_admin/backoffice-noticias");
   }
-
 }
-
-

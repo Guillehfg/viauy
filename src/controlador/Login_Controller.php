@@ -12,24 +12,21 @@ class Login_Controller extends Controlador
     try {
       $usuario = $_POST['usuario'];
       $pwd = $_POST['pwd'];
-      
-      
+
+
       $resp = Login::ingresar($usuario, $pwd);
-      
-      if ($resp)
-      {
+
+      if ($resp) {
 
         if (session_status() == PHP_SESSION_NONE) {
-          session_start(); 
+          session_start();
         }
-        $_SESSION['nombre_usuario'] = $usuario; 
+        $_SESSION['nombre_usuario'] = $usuario;
 
         require 'src/vista/index/index.php';
-        exit; 
+        exit;
       }
- 
     } catch (\Throwable $th) {
-
     }
   }
 
@@ -57,26 +54,23 @@ class Login_Controller extends Controlador
       $nombre = $_POST['nombre'];
       $apellido = $_POST['apellido'];
       $edad = $_POST['edad'];
-      
-      
+
+
       $resp = Login::register($usuario, $pwd, $nombre, $apellido, $edad);
-      
-      if ($resp)
-      {
+
+      if ($resp) {
         if (session_status() == PHP_SESSION_NONE) {
-          session_start(); 
+          session_start();
         }
-        $_SESSION['nombre_usuario'] = $usuario; 
+        $_SESSION['nombre_usuario'] = $usuario;
 
         require 'src/vista/index/index.php';
-        exit; 
-      }else 
-      {
+        exit;
+      } else {
         echo $resp;
       }
- 
     } catch (\Throwable $th) {
       echo "quep?" . $th;
-    } 
+    }
   }
 }

@@ -1,12 +1,11 @@
 <?php
 
-define('URL', 'http://localhost/proyectoCoderwise-main/CoderWise%20site/'); 
-
+define('URL', '/viauy/');
 
 //conexion a la base de datos
 define('HOST', 'localhost');
 define('PORT_DB', '3306');
 define('DB', 'CoderWise');
 define('USER', 'root');
-define('PASSWORD', '');
+define('PASSWORD', 'root');
 define('CHARSET', 'utf8mb4');

@@ -2,7 +2,6 @@
 
 namespace Coderwise\Viauy\libs;
 
-
 use PDO;
 use PDOException;
 
