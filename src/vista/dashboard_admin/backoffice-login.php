@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Backoffice ViaUY</title>
-    <link rel="stylesheet" href="../../../public/css/backoffice-login.css">
+    <link rel="stylesheet" href="public/css/backoffice-login.css">
 </head>
+
 <body>
     <div class="backoffice-content">
-        <img src="../../../img/logos-png/Viauy-9.png" alt="" width="50%" height="10%">
+        <img src="img/logos-png/Viauy-9.png" alt="" width="50%" height="10%">
         <h3>Inicia Sesión</h3>
         <form>
             <div class="login-input">
@@ -34,4 +36,5 @@
         </form>
     </div>
 </body>
+
 </html>

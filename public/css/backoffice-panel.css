@@ -222,7 +222,7 @@ hr{
 }
 
 
-.news-input input[type="text"]{
+.news-input input[type="text"], .news-input input[type="number"]{
     width: 50%;
     border: none;
     border: 1px solid black;
@@ -338,4 +338,13 @@ hr{
     .photo{
         min-width: 150px;
     }
+}
+
+input[type="text"], input[type="number"],  select {
+    border-radius: 3px;
+    width: 100%;
+}
+.select {
+    border: 1px solid #000;
+    padding: 0.23rem;
 }

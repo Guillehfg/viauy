@@ -35,6 +35,11 @@ class Login_Controller extends Controlador
     require 'src/vista/login/login.php';
   }
 
+  public function vista_backoffice_login()
+  {
+    $this->cargarVista("dashboard_admin/backoffice-login");
+  }
+
   public function vista_register()
   {
     require 'src/vista/login/register.php';

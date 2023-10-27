@@ -8,11 +8,18 @@ use Coderwise\Viauy\libs\Conexion;
 
 class BackOffice
 {
-  public static function editarLinea($datos)
+  public static function agregarLinea($datos)
   {
     $conexion = Conexion::getConexion();
 
     $pdo = $conexion->getPdo();
+
+    $sql = "INSERT INTO lineas (IdServicio, IDruta, DuracionViaje, Precio) VALUES (:servicio, :ruta, :duracion, :precio)";
+    $consulta = $pdo->prepare($sql);
+
+    $consulta->execute($datos);
+
+    return true;
   }
 
   public static function obtenerFiltros()
@@ -24,7 +31,7 @@ class BackOffice
     $consulta_rutas = $pdo->prepare($sql_rutas);
     $consulta_rutas->execute();
 
-    $sql_servicios = "SELECT IdServicio AS id, CONCAT(HoraSalida, ' - ', HoraLlegada) AS nombre FROM servicios";
+    $sql_servicios = "SELECT IdServicio AS id, CONCAT(HoraSalida, ' - ', HoraLlegada, ' - ', Fecha) AS nombre FROM servicios";
     $consulta_servicios = $pdo->prepare($sql_servicios);
     $consulta_servicios->execute();
 

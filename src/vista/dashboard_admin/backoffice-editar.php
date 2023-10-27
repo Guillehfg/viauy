@@ -24,28 +24,24 @@
             </div>
             <form id="form_backoffice_editar" action="" class="editar-linea">
                 <div class="news-input">
-                    <label for="">ID de Coche</label>
-                    <input id="id_coche" type="text" required>
+                    <label for="">Servicio</label>
+                    <select id="servicios" class="select">
+                        <option value="">SELECCIONAR</option>
+                    </select>
                 </div>
                 <div class="news-input">
-                    <label for="">Origen</label>
-                    <input id="origen" type="text" required>
+                    <label for="">Ruta</label>
+                    <select id="rutas" class="select">
+                        <option value="">SELECCIONAR</option>
+                    </select>
                 </div>
                 <div class="news-input">
-                    <label for="">Destino</label>
-                    <input id="destino" type="text" required>
-                </div>
-                <div class="news-input">
-                    <label for="">Hora Salida</label>
-                    <input id="hora_salida" type="text" required>
-                </div>
-                <div class="news-input">
-                    <label for="">Hora Llegada</label>
-                    <input id="hora_llegada" type="text" required>
+                    <label for="">Duración Viaje (horas)</label>
+                    <input id="duracion_viaje" type="text" placeholder="Duración Viaje" required>
                 </div>
                 <div class="news-input">
                     <label for="">Precio</label>
-                    <input id="precio" type="text" required>
+                    <input id="precio" type="text" placeholder="Precio" required>
                 </div>
                 <div class="texto-error">
                 </div>

@@ -10,34 +10,30 @@ class Backoffice_Controller extends Controlador
     $this->cargarVista("dashboard_admin/backoffice-editar");
   }
 
-  public function editarLinea()
+  public function agregarLinea()
   {
     header("Content-Type: application/json");
     try {
       $datos = $_POST;
       $errores = array();
-      if (!$this->validarValorVacio($datos["id_coche"])) {
-        $errores["id_coche"] = "El campo id_coche es obligatorio";
+      if (!$this->validarValorVacio($datos["servicio"])) {
+        $errores["id_coche"] = "El campo servicio es obligatorio";
       }
 
-      if ($this->validarValorVacio($datos["id_coche"]) && !$this->validarNumero($datos["id_coche"])) {
-        $errores["id_coche_number"] = "El campo id_coche debe ser numerico";
+      if ($this->validarValorVacio($datos["servicio"]) && !$this->validarNumero($datos["servicio"])) {
+        $errores["servicio_number"] = "El campo servicio debe ser numerico";
       }
 
-      if (!$this->validarValorVacio($datos["origen"])) {
-        $errores["origen"] = "El campo origen es obligatorio";
+      if (!$this->validarValorVacio($datos["ruta"])) {
+        $errores["ruta"] = "El campo ruta es obligatorio";
       }
 
-      if (!$this->validarValorVacio($datos["destino"])) {
-        $errores["destino"] = "El campo destino es obligatorio";
+      if ($this->validarValorVacio($datos["ruta"]) && !$this->validarNumero($datos["ruta"])) {
+        $errores["ruta_number"] = "El campo ruta debe ser numerico";
       }
 
-      if (!$this->validarValorVacio($datos["hora_salida"])) {
-        $errores["hora_salida"] = "El campo hora_salida es obligatorio";
-      }
-
-      if (!$this->validarValorVacio($datos["hora_llegada"])) {
-        $errores["hora_llegada"] = "El campo hora_llegada es obligatorio";
+      if (!$this->validarValorVacio($datos["duracion"])) {
+        $errores["duracion"] = "El campo duracion es obligatorio";
       }
 
       if (!$this->validarValorVacio($datos["precio"])) {
@@ -50,11 +46,14 @@ class Backoffice_Controller extends Controlador
 
       if (count($errores) > 0) return $this->respuestaError($errores);
 
-      $modelo = BackOffice::editarLinea($datos);
+      $respuesta = BackOffice::agregarLinea($datos);
+
+      if (!$respuesta) throw new Exception("Error agregando linea");
 
       $this->respuestaSuccess(null, "True");
     } catch (\Exception $e) {
       echo $e;
+      $this->respuestaError("Error al agregar la linea");
     }
 
     // $modelo = BackOffice::editarLinea();
