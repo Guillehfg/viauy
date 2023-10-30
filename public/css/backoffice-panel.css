@@ -76,9 +76,9 @@ nav a.active{
     background-color: var(--lightblack-color);
 }
 
-main{
-    width: 100%;
-    padding: 20px 30px 40px 20px;
+main {
+    width: calc(100% - 20vw);
+    padding: 1rem 2rem;
 }
 
 
@@ -93,7 +93,7 @@ h1{
     border-radius: 20px;
     height: 100%;
     width: 100%;
-    padding: 10px 0 30px 80px;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 8px 20px;
@@ -347,4 +347,42 @@ input[type="text"], input[type="number"],  select {
 .select {
     border: 1px solid #000;
     padding: 0.23rem;
+}
+
+.datatable {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #c8c8c8;
+    border-radius: 5px;
+}
+
+.datatable thead {
+    flex: 1 100%;
+    border-bottom: 1px solid #c8c8c8;
+}
+
+.datatable thead tr, .datatable tbody tr{
+    display: flex;
+    gap: 1rem;
+}
+
+.datatable tbody tr {
+    border-bottom: 1px solid #c8c8c8;
+}
+
+.datatable thead th, .datatable tbody td{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    min-height: 24px;
+}
+
+.datatable tbody td.action-column{
+    display: flex;
+    gap: 1rem;
+}
+
+.datatable tbody td.action-column span{
+    cursor: pointer;
 }

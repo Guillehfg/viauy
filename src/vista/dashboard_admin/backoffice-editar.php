@@ -20,48 +20,27 @@
     <main>
         <div class="panel">
             <div class="title-panel">
-                <h1>Agregar Línea</h1>
+                <h1>Editar Línea</h1>
             </div>
-            <form id="form_backoffice_editar" action="" class="editar-linea">
-                <div class="news-input">
-                    <label for="">Servicio</label>
-                    <select id="servicios" class="select">
-                        <option value="">SELECCIONAR</option>
-                    </select>
-                </div>
-                <div class="news-input">
-                    <label for="">Ruta</label>
-                    <select id="rutas" class="select">
-                        <option value="">SELECCIONAR</option>
-                    </select>
-                </div>
-                <div class="news-input">
-                    <label for="">Duración Viaje (horas)</label>
-                    <input id="duracion_viaje" type="text" placeholder="Duración Viaje" required>
-                </div>
-                <div class="news-input">
-                    <label for="">Precio</label>
-                    <input id="precio" type="text" placeholder="Precio" required>
-                </div>
-                <div class="texto-error">
-                </div>
-                <div class="button-box-editar">
-                    <button id="editar_linea" type="button">Agregar</button>
-                </div>
-            </form>
-
-            <hr>
-            <div class="news-create">
-                <h1>Modificar Línea</h1>
-
-            </div>
-
-
+            <table id="tabla_lineas" class="datatable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Servicio</th>
+                        <th>Ruta</th>
+                        <th>Duracion Viaje</th>
+                        <th>Precio</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="sweetalert2.all.min.js"></script>
-    <script src="public/js/backoffice.js"></script>
+    <script src="public/js/library.js"></script>
+    <script src="public/js/backoffice-editar.js"></script>
 </body>
 
 </html>

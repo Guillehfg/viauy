@@ -1,16 +1,25 @@
+// Variables globales
+let id_detalle = null;
 /**
  * Funcion de arranque
  */
 function bootstrapper() {
-  const boton_editar_linea = document.getElementById("editar_linea");
-
-  if (boton_editar_linea)
-    boton_editar_linea.addEventListener("click", agregarLinea);
+  obtenerId();
 
   cargarFiltros();
+
+  // Eventos
+  const boton_editar = document.getElementById("editar_linea");
+  boton_editar.addEventListener("click", confirmarEdicion);
 }
 
 bootstrapper();
+
+function obtenerId() {
+  const query_params = new URLSearchParams(window.location.href);
+
+  id_detalle = query_params.get("id");
+}
 
 async function cargarFiltros() {
   const peticion = new FetchRequest("Backoffice", "obtenerFiltros");
@@ -19,6 +28,8 @@ async function cargarFiltros() {
 
   llenarServicios(data.servicios);
   llenarRutas(data.rutas);
+
+  cargarDatosDetalle();
 }
 
 function llenarRutas(rutas) {
@@ -51,6 +62,50 @@ function llenarServicios(servicios) {
   });
 }
 
+async function cargarDatosDetalle() {
+  const peticion = new FetchRequest("Backoffice", "verDetalle");
+
+  const payload = new FormData();
+  payload.append("id", id_detalle);
+  try {
+    peticion.establecerMetodo("POST");
+    peticion.establecerPayload(payload);
+
+    const respuesta = await peticion.request();
+
+    if (respuesta.status !== "success") return false;
+
+    llenarDetalle(respuesta.data);
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+/**
+ *
+ * @param {Record<string, any>} datos
+ */
+function llenarDetalle(datos) {
+  const nombre = document.getElementById("nombre");
+  nombre.value = datos.nombre;
+
+  const evento = new Event("change");
+
+  const servicios = document.getElementById("servicios");
+  servicios.value = datos.id_servicio;
+  servicios.dispatchEvent(evento);
+
+  const rutas = document.getElementById("rutas");
+  rutas.value = datos.id_ruta;
+  rutas.dispatchEvent(evento);
+
+  const duracion_viaje = document.getElementById("duracion_viaje");
+  duracion_viaje.value = datos.duracion_viaje;
+
+  const precio = document.getElementById("precio");
+  precio.value = Number(datos.precio);
+}
+
 function obtenerInputs() {
   const nombre = document.getElementById("nombre").value;
   const id_servicio = document.getElementById("servicios").value;
@@ -59,6 +114,7 @@ function obtenerInputs() {
   const precio = document.getElementById("precio").value;
 
   return {
+    id: id_detalle,
     nombre,
     id_servicio,
     id_ruta,
@@ -66,36 +122,6 @@ function obtenerInputs() {
     precio,
   };
 }
-
-//#region utilidades
-const validaciones = {
-  required: validarRequerido,
-  typeNumber: validarNumero,
-  typeTime: validarTiempo,
-};
-
-/**
- *
- * @param {string} valor
- * @returns {boolean} validacion
- */
-function validarRequerido(valor) {
-  if (valor === undefined || valor === null || valor === "") return false;
-  return true;
-}
-
-function validarNumero(valor) {
-  const regex = new RegExp(/^(\d){0,}$/, "g");
-
-  return regex.test(valor);
-}
-
-function validarTiempo(valor) {
-  const regex = new RegExp(/^(\d){2,2}:(\d){2,2}:(\d){2,2}$/, "g");
-
-  return regex.test(valor);
-}
-//#endregion
 
 /**
  *
@@ -105,45 +131,60 @@ function validarDatos(datos) {
   const { required, typeNumber, typeTime } = validaciones;
 
   if (!required(datos.nombre)) {
-    mostrarError("El campo nombre es obligatorio");
+    mostrarError(".texto-error", "El campo nombre es obligatorio");
     return false;
   }
 
   if (!required(datos.id_servicio)) {
-    mostrarError("El campo servicio es obligatorio");
+    mostrarError(".texto-error", "El campo servicio es obligatorio");
     return false;
   }
 
   if (!required(datos.id_ruta)) {
-    mostrarError("El campo ruta es obligatorio");
+    mostrarError(".texto-error", "El campo ruta es obligatorio");
     return false;
   }
 
   if (!required(datos.duracion)) {
-    mostrarError("El campo duracion es obligatorio");
+    mostrarError(".texto-error", "El campo duracion es obligatorio");
     return false;
   }
 
   if (!typeTime(datos.duracion)) {
-    mostrarError("El campo duracion debe tener el formato HH:mm:ss");
+    mostrarError(
+      ".texto-error",
+      "El campo duracion debe tener el formato HH:mm:ss"
+    );
     return false;
   }
 
   if (!required(datos.precio)) {
-    mostrarError("El campo precio es obligatorio");
+    mostrarError(".texto-error", "El campo precio es obligatorio");
     return false;
   }
 
   if (!typeNumber(datos.precio)) {
-    mostrarError("El campo precio debe ser de tipo numerico");
+    mostrarError(".texto-error", "El campo precio debe ser de tipo numerico");
     return false;
   }
 
-  mostrarError("");
+  mostrarError(".texto-error", "");
   return true;
 }
 
-async function agregarLinea() {
+function confirmarEdicion() {
+  Swal.fire({
+    icon: "warning",
+    title: "¿Esta seguro de editar la linea?",
+    showCancelButton: true,
+    confirmButtonText: "Si",
+    cancelButtonText: "No",
+  }).then((respuesta) => {
+    if (respuesta.isConfirmed) actualizarLinea();
+  });
+}
+
+async function actualizarLinea() {
   const datos = obtenerInputs();
 
   const es_valido = validarDatos(datos);
@@ -157,7 +198,7 @@ async function agregarLinea() {
       payload.append(key, value);
     });
 
-    const peticion = new FetchRequest("Backoffice", "agregarLinea");
+    const peticion = new FetchRequest("Backoffice", "editarLinea");
     peticion.establecerMetodo("POST");
     peticion.establecerPayload(payload);
 
@@ -166,13 +207,13 @@ async function agregarLinea() {
     if (respuesta.status !== "success") throw respuesta;
 
     Swal.fire({
-      title: "Se agrego la linea exitosamente",
+      title: "Se edito la linea exitosamente",
       icon: "success",
     });
   } catch (error) {
     console.error(error);
     Swal.fire({
-      title: "Ha ocurrido un error al agregar la linea",
+      title: "Ha ocurrido un error al editar la linea",
       icon: "error",
     });
   }
