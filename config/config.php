@@ -1,6 +1,10 @@
 <?php
+$ruta = dirname(__FILE__, 2) . "/";
+$ruta = str_replace("\\", "/", $ruta);
+$ruta = explode("/", $ruta);
+$ruta = $ruta[count($ruta) - 2];
 
-define('URL', '/viauy/');
+define('URL', "/" . $ruta . "/");
 
 //conexion a la base de datos
 define('HOST', 'localhost');

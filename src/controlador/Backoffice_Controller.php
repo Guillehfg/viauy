@@ -5,6 +5,11 @@ use Coderwise\Viauy\Modelo\BackOffice;
 
 class Backoffice_Controller extends Controlador
 {
+  public function __construct()
+  {
+    $es_sesion_valida = $this->validarCredenciales();
+    if (!$es_sesion_valida) header("Location: http://localhost:8000/viauy/index.php?c=Login&m=vista_backoffice_login");
+  }
   #region rutas
   public function backoffice_agregar()
   {
@@ -41,6 +46,20 @@ class Backoffice_Controller extends Controlador
     $this->cargarVista("dashboard_admin/backoffice-noticias");
   }
   #endregion
+
+  private function validarCredenciales()
+  {
+    $id_usuario = $_SESSION["id_user"];
+    $tipo_cuenta = $_SESSION["type_account"];
+
+    if (!isset($id_usuario) || !isset($tipo_cuenta)) return false;
+
+    if ($tipo_cuenta != "1") return false;
+
+    $datos_usuario = BackOffice::usuarioActual($id_usuario);
+
+    return isset($datos_usuario);
+  }
 
   private function validarPayloadLinea($datos)
   {

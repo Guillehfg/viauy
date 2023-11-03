@@ -1,5 +1,5 @@
 // CONSTANTES
-const BASE_URL = "http://127.0.0.1:8000/viauy/index.php";
+const BASE_URL = `${window.location.origin}${window.location.pathname}`;
 /**
  *
  * @param {string} controlador nombre del controlador sin el postfijo _Controller
@@ -86,7 +86,7 @@ function validarTiempo(valor) {
  * @param {string} selector
  * @param {string} mensaje
  */
-function mostrarError(selector, mensaje) {
+function mostrarError(selector = ".texto-error", mensaje) {
   const texto_error = document.querySelector(selector);
   texto_error.innerHTML = mensaje;
 }

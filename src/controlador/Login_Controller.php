@@ -30,6 +30,29 @@ class Login_Controller extends Controlador
     }
   }
 
+  public function loginBackoffice()
+  {
+    try {
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+
+      $respuesta = Login::loginBackoffice($email, $password);
+
+      if (!$respuesta) return;
+
+      if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+      }
+
+      $_SESSION['id_user'] = $respuesta["IDAdm"];
+      $_SESSION['type_account'] = "1";
+
+      return $this->respuestaSuccess(null, "Se ha iniciado sesion exitosamente");
+    } catch (\Throwable $th) {
+      echo $th;
+      $this->respuestaError("Error al iniciar sesion.");
+    }
+  }
   public function vista_login()
   {
     require 'src/vista/login/login.php';
@@ -49,6 +72,12 @@ class Login_Controller extends Controlador
   {
     session_destroy();
     require 'src/vista/index/index.php';
+  }
+
+  public function logout_backoffice()
+  {
+    session_destroy();
+    $this->vista_backoffice_login();
   }
 
   public function registrar()

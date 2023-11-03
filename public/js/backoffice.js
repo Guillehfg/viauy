@@ -67,36 +67,6 @@ function obtenerInputs() {
   };
 }
 
-//#region utilidades
-const validaciones = {
-  required: validarRequerido,
-  typeNumber: validarNumero,
-  typeTime: validarTiempo,
-};
-
-/**
- *
- * @param {string} valor
- * @returns {boolean} validacion
- */
-function validarRequerido(valor) {
-  if (valor === undefined || valor === null || valor === "") return false;
-  return true;
-}
-
-function validarNumero(valor) {
-  const regex = new RegExp(/^(\d){0,}$/, "g");
-
-  return regex.test(valor);
-}
-
-function validarTiempo(valor) {
-  const regex = new RegExp(/^(\d){2,2}:(\d){2,2}:(\d){2,2}$/, "g");
-
-  return regex.test(valor);
-}
-//#endregion
-
 /**
  *
  * @param {Record<string, any>} datos
@@ -105,41 +75,41 @@ function validarDatos(datos) {
   const { required, typeNumber, typeTime } = validaciones;
 
   if (!required(datos.nombre)) {
-    mostrarError("El campo nombre es obligatorio");
+    mostrarError(undefined, "El campo nombre es obligatorio");
     return false;
   }
 
   if (!required(datos.id_servicio)) {
-    mostrarError("El campo servicio es obligatorio");
+    mostrarError(undefined, "El campo servicio es obligatorio");
     return false;
   }
 
   if (!required(datos.id_ruta)) {
-    mostrarError("El campo ruta es obligatorio");
+    mostrarError(undefined, "El campo ruta es obligatorio");
     return false;
   }
 
   if (!required(datos.duracion)) {
-    mostrarError("El campo duracion es obligatorio");
+    mostrarError(undefined, "El campo duracion es obligatorio");
     return false;
   }
 
   if (!typeTime(datos.duracion)) {
-    mostrarError("El campo duracion debe tener el formato HH:mm:ss");
+    mostrarError(undefined, "El campo duracion debe tener el formato HH:mm:ss");
     return false;
   }
 
   if (!required(datos.precio)) {
-    mostrarError("El campo precio es obligatorio");
+    mostrarError(undefined, "El campo precio es obligatorio");
     return false;
   }
 
   if (!typeNumber(datos.precio)) {
-    mostrarError("El campo precio debe ser de tipo numerico");
+    mostrarError(undefined, "El campo precio debe ser de tipo numerico");
     return false;
   }
 
-  mostrarError("");
+  mostrarError(undefined, "");
   return true;
 }
 

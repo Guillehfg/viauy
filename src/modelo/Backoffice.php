@@ -7,6 +7,23 @@ use Coderwise\Viauy\libs\Conexion;
 
 class BackOffice
 {
+
+  public static function usuarioActual($id_usuario)
+  {
+    $conexion = Conexion::getConexion();
+
+    $pdo = $conexion->getPdo();
+
+    $sql = "SELECT * FROM administradores WHERE IDAdm = :id";
+    $consulta = $pdo->prepare($sql);
+    $consulta->bindParam(':id', $id_usuario, \PDO::PARAM_INT);
+    $consulta->execute();
+
+    $datos = $consulta->fetch();
+
+    return $datos;
+  }
+
   public static function agregarLinea($datos)
   {
     $conexion = Conexion::getConexion();

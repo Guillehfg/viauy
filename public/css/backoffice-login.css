@@ -127,3 +127,7 @@ form .input-submit input:hover{
         padding: 40px 50px;
     }
 }
+
+.texto-error {
+    color: rgb(192, 0, 0);
+}

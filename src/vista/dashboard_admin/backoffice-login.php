@@ -15,11 +15,11 @@
         <form>
             <div class="login-input">
                 <label for="">ID de Usuario</label>
-                <input type="correo" placeholder="Ingrese su ID de usuario">
+                <input type="email" id="email" placeholder="Ingrese su ID de usuario">
             </div>
             <div class="login-input">
                 <label for="">Contraseña</label>
-                <input type="password" placeholder="Ingrese su contraseña">
+                <input type="password" id="password" placeholder="Ingrese su contraseña">
             </div>
             <div class="input-check-box">
                 <div class="input-check-content">
@@ -30,11 +30,14 @@
                     <a href="">Olvide mi contraseña</a>
                 </div>
             </div>
+            <span class="texto-error"></span>
             <div class="input-submit">
-                <input type="submit" value="Inciar Sesión">
+                <input id="login_backoffice" type="button" value="Inciar Sesión">
             </div>
         </form>
     </div>
+    <script src="public/js/library.js"></script>
+    <script src="public/js/backoffice-login.js"></script>
 </body>
 
 </html>
